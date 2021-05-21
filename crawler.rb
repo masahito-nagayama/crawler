@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'anemone'
 require 'pry'
 # 巡回起点となるURL
-URL = 'https://mamoria.jp/mycaremane'.freeze
+URL = 'https://***************'.freeze
 
 area_urls = []
 prefecture_urls = []
@@ -13,7 +13,7 @@ Anemone.crawl(URL, depth_limit: 0, delay: 2) do |anemone|
   anemone.focus_crawl do |page|
     # 次にクロールする候補リスト
     page.links.keep_if do |link|
-      link.to_s.match(%r{mycaremane/[0-9]{1,2}})
+      link.to_s.match(%r{********/[0-9]{1,2}})
     end
     page.links.each do |link|
       area_urls << link
@@ -25,7 +25,7 @@ area_urls.each do |area|
   Anemone.crawl(area, depth_limit: 0, delay: 2) do |anemone|
     anemone.focus_crawl do |page|
       page.links.keep_if do |link|
-        link.to_s.match(%r{mycaremane/[0-9]{1,2}/[0-9]{5}})
+        link.to_s.match(%r{********/[0-9]{1,2}/[0-9]{5}})
       end
       page.links.each do |link|
         prefecture_urls << link
@@ -38,7 +38,7 @@ prefecture_urls.each do |prefecture|
   Anemone.crawl(prefecture, depth_limit: 1, delay: 2, skip_query_strings: true) do |anemone|
     anemone.focus_crawl do |page|
       page.links.keep_if do |link|
-        link.to_s.match(%r{mycaremane/[0-9]{1,2}/[0-9]{5}/[0-9]})
+        link.to_s.match(%r{*******/[0-9]{1,2}/[0-9]{5}/[0-9]})
       end
       page.links.each do |link|
         city_urls << link
@@ -48,7 +48,7 @@ prefecture_urls.each do |prefecture|
       end
     end
 
-    PATTERN = %r[mycaremane/[0-9]{1,2}/[0-9]{5}/[0-9]].freeze
+    PATTERN = %r[*********[0-9]{1,2}/[0-9]{5}/[0-9]].freeze
 
     anemone.on_pages_like(PATTERN) do |page|
       url = page.url.to_s
