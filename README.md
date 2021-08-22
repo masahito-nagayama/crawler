@@ -1,7 +1,7 @@
 # crawler
 
-起点となるURLは「*******」で隠している。
+起点となるURLは「*******」でマスクしている。
 
-docker環境での実行コマンドを以下。
+docker環境で以下のコマンドを実行する。
 
 $ docker-compose exec api bin/rails runner lib/batch/crawler.rb
