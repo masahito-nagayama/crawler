@@ -67,7 +67,7 @@ prefecture_urls.each do |prefecture|
       address = add.strip
       tel = doc.xpath('/html/body/div[4]/div/div[2]/table[1]/tbody/tr[4]/td').text
       fax = doc.xpath('/html/body/div[4]/div/div[2]/table[1]/tbody/tr[5]/td').text
-      staff_number = doc.xpath('/html/body/div[4]/div/div[2]/table[4]/tbody/tr[1]/td/p').text
+      *****_number = doc.xpath('/html/body/div[4]/div/div[2]/table[4]/tbody/tr[1]/td/p').text
       company = doc.xpath('/html/body/div[4]/div/div[2]/table[5]/tbody/tr[2]/td').text
       office_url = doc.xpath('/html/body/div[4]/div/div[2]/table[1]/tbody/tr[6]/td/a').text
       # 正規表現でURLから5桁市区町村コードを抜き出す
@@ -81,13 +81,13 @@ prefecture_urls.each do |prefecture|
                            tel: tel,
                            fax: fax,
                            address: address,
-                           staff_number: staff_number,
+                           *****_number: staff_number,
                            company: company,
                            url: office_url,
                            city_number: city_number)
       offices.save(validate: false)
 
-      # 事業所画像テーブルの雛形を作成
+      # 雛形を作成
       id = offices.id
       office_images_position = %i[top left right]
       office_images_position.each do |position|
